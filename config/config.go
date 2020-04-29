@@ -86,6 +86,7 @@ func Load(args []string) configurations.Configurations {
 		MaxSizeMbUpload: 10 << 55, // min << max
 
 		BCryptSecret: confFile["BCRYPT_SECRET"],
+		ResetHash:    confFile["RESET_HASH"],
 
 		// Session
 		Session: configurations.SessionConfiguration{

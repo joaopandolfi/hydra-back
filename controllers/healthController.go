@@ -28,7 +28,7 @@ func (cc HealthController) Config(w http.ResponseWriter, r *http.Request) {
 	hash := handlers.GetHeader(r, "hash")
 	utils.Debug("HEADER", hash, configurations.Configuration.ResetHash)
 	if hash != configurations.Configuration.ResetHash {
-		handlers.Response(w, "Not cookies for you")
+		handlers.Response(w, "No cookies for you")
 		return
 	}
 	configure()

@@ -42,7 +42,6 @@ func (cc AuthController) LoginPage(w http.ResponseWriter, r *http.Request) {
 // Session keys: `logged`, `username`, `institution`, `level`, `token`
 func (cc AuthController) Login(w http.ResponseWriter, r *http.Request) {
 	var userService = NewUserService()
-	var sess, _ = handlers.GetSession(r)
 	var received map[string]string
 	err := json.NewDecoder(r.Body).Decode(&received)
 
@@ -55,13 +54,22 @@ func (cc AuthController) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if received["username"] != "" && received["password"] != "" {
+	if received["username"] != "" && received["password"] != "" && received["institution"] != "" {
 
-		user, success, err := userService.Login(received["username"], received["password"])
+		user, success, err := userService.Login(received["username"], received["password"], received["institution"])
 		//( == "joao" &&  == "202cb962ac59075b964b07152d234b70")
+		if err != nil {
+			success = false
+		}
 		if success {
+			var sess, err = handlers.GetSession(r)
+			if err != nil {
+				utils.CriticalError("Error on get session", err.Error())
+				handlers.RESTResponseError(w, "Session Error")
+				return
+			}
+
 			sess.Values[models.SESSION_VALUE_LOGGED] = true
-			sess.Values[models.SESSION_VALUE_SPECIALTY] = 1 // Default - oftalmo
 			sess.Values[models.SESSION_VALUE_USERNAME] = user.Username
 			sess.Values[models.SESSION_VALUE_NAME] = user.Name
 			sess.Values[models.SESSION_VALUE_INSTITUTION] = user.Instution
