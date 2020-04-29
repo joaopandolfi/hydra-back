@@ -22,10 +22,10 @@ func configInit() {
 }
 
 func resilient() {
-	utils.Info("[SERVER] - Shutdown")
+	utils.Info("[SERVER] - Shutdown", "Head has been cutted")
 
 	if err := recover(); err != nil {
-		utils.CriticalError("[SERVER] - Returning from the dark", fmt.Sprintf("Recovered -> %v", err))
+		utils.CriticalError("[SERVER][Recovering] - Another head reaper", fmt.Sprintf("Recovered -> %v", err))
 		main()
 	}
 }
