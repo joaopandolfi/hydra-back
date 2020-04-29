@@ -1,0 +1,7 @@
+version: "3.2"
+services:
+  hydra.mongo:
+    container_name: hydra.mongo
+    image: mongo:3.6
+    ports:
+      - "127.0.0.1:27017:27017"

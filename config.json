@@ -1,0 +1,22 @@
+{
+    "MYSQL_USER": "root",
+    "MYSQL_PASSWORD": "usbw",
+    "MYSQL_HOST": "localhost",
+    "MYSQL_PORT": "3307",
+    "MYSQL_DB": "hydra_back",
+
+    "MONGO_URL":"mongodb://127.0.0.1:27017",
+    "MONGO_DB":"hydra_back",
+    "MONGO_POOL": "5",
+
+    "PORT":":8990",
+    "CORS":"*",
+
+    "BCRYPT_SECRET":"#1$eY)&4!$%@!@#30",
+    "BCRYPT_COST": "10",
+    
+    "SESSION_NAME":"&#@!JKS)SA#",
+    "SESSION_STORE":"_-)(AS(&H:(SD)_:)H@ˆ@@#$##$*{{{$$}}}(U$$#@D)&#4#())P(@Mkdksdsb321k5*443@@##@$!",
+    
+    "HYDRA_DEFAULT_PASSWORD": "a51345cbda5bbefd6521d7eb18ecace2"
+}
