@@ -33,7 +33,11 @@ func (cc User) NewUser(user models.User) (result models.User, err error) {
 	}
 	id := mongo.GetNextID("user_id")
 	user.ID = id
-	user.Token, err = utils.NewJwtToken(fmt.Sprint(id), 60)
+	user.Token, err = utils.NewJwtToken(utils.Token{
+		ID:          fmt.Sprint(user.ID),
+		Institution: fmt.Sprint(user.Instution),
+		Permission:  fmt.Sprint(user.Level),
+	}, 60)
 
 	result = user
 

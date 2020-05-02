@@ -43,7 +43,7 @@ func main() {
 	//cron.Register(os.Args[1:])
 
 	// Bind to a port and pass our router in
-	utils.Info("MI server listenning on", configurations.Configuration.Port)
+	utils.Info("Hydra server listenning on", configurations.Configuration.Port)
 	srv := &http.Server{
 		Handler:      r,
 		Addr:         configurations.Configuration.Port,

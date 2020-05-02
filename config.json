@@ -1,4 +1,8 @@
 {
+    "DEBUG":"true",
+    "TLS_KEY":"",
+    "TLS_CERT":"",
+
     "MYSQL_USER": "root",
     "MYSQL_PASSWORD": "usbw",
     "MYSQL_HOST": "localhost",

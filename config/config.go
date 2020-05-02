@@ -1,16 +1,13 @@
 package config
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
 	"strconv"
 	"time"
 
 	"github.com/flosch/pongo2"
 	"github.com/gorilla/sessions"
 	"github.com/joaopandolfi/blackwhale/configurations"
-	"github.com/joaopandolfi/blackwhale/utils"
 	"github.com/unrolled/secure"
 )
 
@@ -26,13 +23,14 @@ var Config Configs
 
 func Load(args []string) configurations.Configurations {
 	var confFile map[string]string
+	confFile = configurations.LoadJsonFile("./config.json")
 
 	Config = Configs{
 		Token:           "$238#!%s@233**#sd*",
-		Debug:           true,
-		TLSCert:         "",
-		TLSKey:          "",
-		DefaultPassword: "",
+		Debug:           confFile["DEBUG"] == "true",
+		TLSCert:         confFile["TLS_CERT"],
+		TLSKey:          confFile["TLS_KEY"],
+		DefaultPassword: confFile["HYDRA_DEFAULT_PASSWORD"],
 	}
 
 	if len(args) == 3 {
@@ -43,24 +41,9 @@ func Load(args []string) configurations.Configurations {
 		}
 	}
 
-	file, err := os.Open("./config.json")
-	if err != nil {
-		utils.CriticalError("Config file is not present", err.Error())
-		panic("Config file is not present")
-	}
-
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&confFile)
-	if err != nil {
-		utils.CriticalError("Config file is not parseable", err.Error())
-		panic("Config file is not parseable")
-	}
-
 	mongoPool, _ := strconv.Atoi(confFile["MONGO_POOL"])
 	bcryptCost, _ := strconv.Atoi(confFile["BCRYPT_COST"])
 	tokenValidity, _ := strconv.Atoi(confFile["TOKEN_VALIDITY_MINUTES"])
-
-	Config.DefaultPassword = confFile["HYDRA_DEFAULT_PASSWORD"]
 
 	return configurations.Configurations{
 		Name: "Hydra Back - GO",
