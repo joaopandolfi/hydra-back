@@ -70,7 +70,7 @@ func (cc AuthController) Login(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			token, err := utils.NewJwtToken(fmt.Sprintf("%d", user.ID), configurations.Configuration.Security.TokenValidity)
+			token, err := utils.NewJwtToken(fmt.Sprint(user.ID), configurations.Configuration.Security.TokenValidity)
 
 			if err != nil {
 				token = user.Token

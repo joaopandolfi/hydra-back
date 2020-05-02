@@ -1,10 +1,8 @@
 package services
 
 import (
-	"fmt"
 	"strconv"
 
-	"../config"
 	"../dao"
 	"../models"
 	"github.com/joaopandolfi/blackwhale/utils"
@@ -43,7 +41,6 @@ func (cc User) NewUserClient(user models.User) (result models.User, err error) {
 // NewUser Generic
 func (cc User) NewUser(user models.User) (result models.User, err error) {
 	user.Password, err = utils.HashPassword(user.Password)
-	user.Token, err = utils.HashPassword(fmt.Sprintf(config.Config.Token, user.Username))
 
 	if err != nil {
 		user.Password = ""

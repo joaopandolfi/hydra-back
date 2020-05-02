@@ -110,7 +110,7 @@ func Load(args []string) configurations.Configurations {
 			BCryptCost:    bcryptCost,
 			TLSCert:       "",
 			TLSKey:        "",
-			JWTSecret:     "",
+			JWTSecret:     confFile["JWT_SECRET"],
 			TokenValidity: tokenValidity,
 		},
 

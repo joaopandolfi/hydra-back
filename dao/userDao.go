@@ -1,6 +1,8 @@
 package dao
 
 import (
+	"fmt"
+
 	"../models"
 	"github.com/joaopandolfi/blackwhale/remotes/mongo"
 	"github.com/joaopandolfi/blackwhale/utils"
@@ -31,6 +33,7 @@ func (cc User) NewUser(user models.User) (result models.User, err error) {
 	}
 	id := mongo.GetNextID("user_id")
 	user.ID = id
+	user.Token, err = utils.NewJwtToken(fmt.Sprint(id), 60)
 
 	result = user
 
