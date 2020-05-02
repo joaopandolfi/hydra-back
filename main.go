@@ -35,14 +35,8 @@ func main() {
 
 	//Init
 	configInit()
-
-	// Initialize Mux Router
 	r := mux.NewRouter()
-
-	// Security
 	routes.Handlers(r)
-
-	// Routes consist of a path and a handler function.
 	routes.Register(r)
 
 	//CRON Register

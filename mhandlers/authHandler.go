@@ -3,7 +3,6 @@ package mhandlers
 import (
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"../dao"
 	"../models"
@@ -35,12 +34,12 @@ func TokenHandler(next http.HandlerFunc) http.HandlerFunc {
 		}
 
 		token := handlers.GetHeader(r, "token")
-		userIDs := handlers.GetHeader(r, "id")
-		userID, _ := strconv.Atoi(userIDs)
+		userID := handlers.GetHeader(r, "id")
 
-		s, err := uservice.CheckToken(userID, token)
+		t, err := utils.CheckJwtToken(token)
+		//s, err := uservice.CheckToken(userID, token)
 
-		if !s || err != nil {
+		if !t.Authorized || err != nil || t.ID != userID {
 			utils.Debug("[TokenHandler]", "Auth Error", url)
 			handlers.Redirect(r, w, "/login")
 			return

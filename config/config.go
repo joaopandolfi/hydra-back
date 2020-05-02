@@ -58,6 +58,7 @@ func Load(args []string) configurations.Configurations {
 
 	mongoPool, _ := strconv.Atoi(confFile["MONGO_POOL"])
 	bcryptCost, _ := strconv.Atoi(confFile["BCRYPT_COST"])
+	tokenValidity, _ := strconv.Atoi(confFile["TOKEN_VALIDITY_MINUTES"])
 
 	Config.DefaultPassword = confFile["HYDRA_DEFAULT_PASSWORD"]
 
@@ -106,7 +107,11 @@ func Load(args []string) configurations.Configurations {
 				SSLHost:            "locahost:443",
 				SSLRedirect:        false,
 			},
-			BCryptCost: bcryptCost,
+			BCryptCost:    bcryptCost,
+			TLSCert:       "",
+			TLSKey:        "",
+			JWTSecret:     "",
+			TokenValidity: tokenValidity,
 		},
 
 		Templates: make(map[string]*pongo2.Template),
