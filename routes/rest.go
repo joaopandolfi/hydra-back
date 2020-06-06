@@ -21,6 +21,4 @@ func rest(r *mux.Router) {
 	r.HandleFunc("/lambda/tag/new", mhandlers.AuthTokenedProtection(controllers.LambdaController{}.SaveWithTag)).Methods("POST")
 	r.HandleFunc("/lambda/get/{id}", mhandlers.AuthTokenedProtection(controllers.LambdaController{}.GetByID)).Methods("GET")
 
-	//Predict
-	//r.HandleFunc("/rest/predict/new", mhandlers.TokenHandler(controllers.PredictController{}.Predict)).Methods("POST")
 }

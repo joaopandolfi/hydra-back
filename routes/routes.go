@@ -13,6 +13,9 @@ func Register(r *mux.Router) {
 	//public(r)
 	pages(r)
 	rest(r)
+	patient(r)
+	hospital(r)
+	itu(r)
 }
 
 // Precompile pages
