@@ -7,6 +7,7 @@ import (
 	"github.com/segmentio/encoding/json"
 
 	"github.com/joaopandolfi/hydra-back/models"
+	"github.com/joaopandolfi/hydra-back/services"
 
 	"github.com/flosch/pongo2"
 	"github.com/joaopandolfi/blackwhale/configurations"
@@ -42,7 +43,7 @@ func (cc AuthController) LoginPage(w http.ResponseWriter, r *http.Request) {
 // If login is successfull, the data will be stored in `session`
 // Session keys: `logged`, `username`, `institution`, `level`, `token`
 func (cc AuthController) Login(w http.ResponseWriter, r *http.Request) {
-	var userService = NewUserService()
+	var userService = services.NewUser()
 	var received map[string]string
 	err := json.NewDecoder(r.Body).Decode(&received)
 
@@ -56,9 +57,7 @@ func (cc AuthController) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if received["username"] != "" && received["password"] != "" && received["institution"] != "" {
-
 		user, success, err := userService.Login(received["username"], received["password"], received["institution"])
-		//( == "joao" &&  == "202cb962ac59075b964b07152d234b70")
 		if err != nil {
 			success = false
 		}
@@ -79,24 +78,24 @@ func (cc AuthController) Login(w http.ResponseWriter, r *http.Request) {
 				token = user.Token
 			}
 
-			sess.Values[models.SESSION_VALUE_LOGGED] = true
-			sess.Values[models.SESSION_VALUE_USERNAME] = user.Username
+			sess.Values[models.SESSION_VALUE_ID] = user.ID
 			sess.Values[models.SESSION_VALUE_NAME] = user.Name
-			sess.Values[models.SESSION_VALUE_INSTITUTION] = user.Instution
 			sess.Values[models.SESSION_VALUE_LEVEL] = user.Level
 			sess.Values[models.SESSION_VALUE_TOKEN] = token
-			sess.Values[models.SESSION_VALUE_ID] = user.ID
+			sess.Values[models.SESSION_VALUE_LOGGED] = true
+			sess.Values[models.SESSION_VALUE_USERNAME] = user.Username
+			sess.Values[models.SESSION_VALUE_INSTITUTION] = user.Instution
 			sess.Options = configurations.Configuration.Session.Options
 			err = sess.Save(r, w)
 			utils.Debug("[AuthController][REST][Login]-Authenticated", sess.Values[models.SESSION_VALUE_USERNAME], err, sess.Values[models.SESSION_VALUE_LOGGED])
 
 			result = make(map[string]interface{})
 
-			result["success"] = true
-			result["token"] = token
-			result["institution"] = user.Instution
 			result["id"] = user.ID
+			result["token"] = token
+			result["success"] = true
 			result["permission"] = user.Level
+			result["institution"] = user.Instution
 
 			handlers.Response(w, result)
 			return

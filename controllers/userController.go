@@ -7,6 +7,7 @@ import (
 	"github.com/joaopandolfi/blackwhale/handlers"
 	"github.com/joaopandolfi/blackwhale/utils"
 	"github.com/joaopandolfi/hydra-back/models"
+	"github.com/joaopandolfi/hydra-back/services"
 	"github.com/segmentio/encoding/json"
 )
 
@@ -18,7 +19,7 @@ type UserController struct {
 // @rest
 func (cc UserController) NewClientUser(w http.ResponseWriter, r *http.Request) {
 	var received map[string]string
-	userService := NewUserService()
+	userService := services.NewUser()
 	err := json.NewDecoder(r.Body).Decode(&received)
 	if err != nil {
 		utils.Error("Erron on get body", err.Error())

@@ -37,13 +37,15 @@ func TokenHandler(next http.HandlerFunc) http.HandlerFunc {
 		userID := handlers.GetHeader(r, "id")
 
 		t, err := utils.CheckJwtToken(token)
-		//s, err := uservice.CheckToken(userID, token)
 
 		if !t.Authorized || err != nil || t.ID != userID {
 			utils.Debug("[TokenHandler]", "Auth Error", url)
 			handlers.Redirect(r, w, "/login")
 			return
 		}
+
+		handlers.InjectHeader(r, "_xlevel", t.Permission)
+		handlers.InjectHeader(r, "_xinstitution", t.Institution)
 
 		utils.Debug("[TokenHandler]", "Authenticated", url)
 		next.ServeHTTP(w, r)

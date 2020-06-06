@@ -9,6 +9,7 @@ import (
 	"github.com/joaopandolfi/blackwhale/utils"
 	"github.com/joaopandolfi/hydra-back/config"
 	"github.com/joaopandolfi/hydra-back/models"
+	"github.com/joaopandolfi/hydra-back/services"
 )
 
 // --- Health ---
@@ -64,7 +65,7 @@ func (cc HealthController) ResetDatabase(w http.ResponseWriter, r *http.Request)
 }
 
 func configure() error {
-	userService := NewUserService()
+	userService := services.NewUser()
 	_, err := userService.NewUser(models.User{
 		People: models.People{
 			Name: "Heil Hydra",

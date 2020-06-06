@@ -19,6 +19,12 @@ type User struct {
 	UserDAO dao.UserDAO
 }
 
+func NewUser() UserService {
+	return User{
+		UserDAO: dao.User{},
+	}
+}
+
 func (cc User) CheckToken(userid int, token string) (success bool, err error) {
 	_, success, err = cc.UserDAO.CheckToken(models.User{Token: token, ID: userid})
 	return
