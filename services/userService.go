@@ -3,9 +3,9 @@ package services
 import (
 	"strconv"
 
-	"../dao"
-	"../models"
 	"github.com/joaopandolfi/blackwhale/utils"
+	"github.com/joaopandolfi/hydra-back/dao"
+	"github.com/joaopandolfi/hydra-back/models"
 )
 
 type UserService interface {

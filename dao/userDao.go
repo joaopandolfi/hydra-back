@@ -3,9 +3,9 @@ package dao
 import (
 	"fmt"
 
-	"../models"
 	"github.com/joaopandolfi/blackwhale/remotes/mongo"
 	"github.com/joaopandolfi/blackwhale/utils"
+	"github.com/joaopandolfi/hydra-back/models"
 	"golang.org/x/xerrors"
 	"gopkg.in/mgo.v2/bson"
 )

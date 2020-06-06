@@ -8,14 +8,14 @@ import (
 	"github.com/joaopandolfi/blackwhale/handlers"
 	"github.com/joaopandolfi/blackwhale/remotes/request"
 	"github.com/joaopandolfi/blackwhale/utils"
-	"../models"
-	"../dao"
+	"github.com/joaopandolfi/hydra-back/dao"
+	"github.com/joaopandolfi/hydra-back/models"
 )
 
 type LambdaController struct {
 }
 
-func (cc LambdaController) Save(w http.ResponseWriter, r *http.Request){
+func (cc LambdaController) Save(w http.ResponseWriter, r *http.Request) {
 	var received map[string]interface{}
 	err := json.NewDecoder(r.Body).Decode(&received)
 	if err != nil {
@@ -24,23 +24,22 @@ func (cc LambdaController) Save(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	userIDs := handlers.GetHeader(r,"id")
-	userID,_ := strconv.Atoi(userIDs)
-
+	userIDs := handlers.GetHeader(r, "id")
+	userID, _ := strconv.Atoi(userIDs)
 
 	dao := dao.Lambda{}
 	id := dao.GenerateID()
-	received["id"] = id;
-	err = dao.Save(models.Lambda{ UserID:userID, Generic:received})
+	received["id"] = id
+	err = dao.Save(models.Lambda{UserID: userID, Generic: received})
 
-	if err != nil{
-		handlers.RESTResponseError(w,false)
-	}else{
-		handlers.RESTResponse(w,id)
+	if err != nil {
+		handlers.RESTResponseError(w, false)
+	} else {
+		handlers.RESTResponse(w, id)
 	}
 }
 
-func (cc LambdaController) SaveWithTag(w http.ResponseWriter, r *http.Request){
+func (cc LambdaController) SaveWithTag(w http.ResponseWriter, r *http.Request) {
 	var received map[string]interface{}
 	err := json.NewDecoder(r.Body).Decode(&received)
 	if err != nil {
@@ -50,34 +49,33 @@ func (cc LambdaController) SaveWithTag(w http.ResponseWriter, r *http.Request){
 	}
 
 	userID := 0
-	userIDs := handlers.GetHeader(r,"id")
+	userIDs := handlers.GetHeader(r, "id")
 	if userIDs != "" {
-		userID,_ = strconv.Atoi(userIDs)
+		userID, _ = strconv.Atoi(userIDs)
 	}
-
 
 	dao := dao.Lambda{}
 	id := dao.GenerateID()
-	received["id"] = id;
-	err = dao.Save(models.Lambda{UserID:userID, Generic:received, Tag:received["tag"].(string)})
+	received["id"] = id
+	err = dao.Save(models.Lambda{UserID: userID, Generic: received, Tag: received["tag"].(string)})
 
-	if err != nil{
-		handlers.RESTResponseError(w,false)
-	}else{
-		handlers.RESTResponse(w,id)
+	if err != nil {
+		handlers.RESTResponseError(w, false)
+	} else {
+		handlers.RESTResponse(w, id)
 	}
 }
 
 func (cc LambdaController) GetByID(w http.ResponseWriter, r *http.Request) {
-	vars:=handlers.GetVars(r)
-	dao:= dao.Lambda{}
-	result,err := dao.GetById(vars["id"])
-	if err != nil{
+	vars := handlers.GetVars(r)
+	dao := dao.Lambda{}
+	result, err := dao.GetById(vars["id"])
+	if err != nil {
 		utils.Error("[LambdaController][GetById] - Erron on save", err.Error())
-		handlers.RESTResponseError(w,"Internal error")
+		handlers.RESTResponseError(w, "Internal error")
 		return
 	}
-	handlers.Response(w,result)
+	handlers.Response(w, result)
 }
 
 func (cc LambdaController) Forward(w http.ResponseWriter, r *http.Request) {

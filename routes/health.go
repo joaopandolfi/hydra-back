@@ -2,9 +2,8 @@ package routes
 
 import (
 	"github.com/gorilla/mux"
-	"../controllers"
+	"github.com/joaopandolfi/hydra-back/controllers"
 )
-
 
 func health(r *mux.Router) {
 	// Health

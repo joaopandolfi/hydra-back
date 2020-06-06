@@ -6,7 +6,7 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	"../models"
+	"github.com/joaopandolfi/hydra-back/models"
 
 	"github.com/flosch/pongo2"
 	"github.com/joaopandolfi/blackwhale/configurations"

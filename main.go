@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"os"
 
-	"./config"
-	"./routes"
 	"github.com/gorilla/mux"
 	"github.com/joaopandolfi/blackwhale/configurations"
+	"github.com/joaopandolfi/hydra-back/config"
+	"github.com/joaopandolfi/hydra-back/routes"
 
 	"github.com/joaopandolfi/blackwhale/remotes/mysql"
 	"github.com/joaopandolfi/blackwhale/utils"

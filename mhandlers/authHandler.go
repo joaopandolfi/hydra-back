@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"../dao"
-	"../models"
-	"../services"
 	"github.com/joaopandolfi/blackwhale/configurations"
 	"github.com/joaopandolfi/blackwhale/handlers"
 	"github.com/joaopandolfi/blackwhale/utils"
+	"github.com/joaopandolfi/hydra-back/dao"
+	"github.com/joaopandolfi/hydra-back/models"
+	"github.com/joaopandolfi/hydra-back/services"
 )
 
 var uservice = services.User{

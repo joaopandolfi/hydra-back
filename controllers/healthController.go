@@ -3,12 +3,12 @@ package controllers
 import (
 	"net/http"
 
-	"../config"
-	"../models"
 	"github.com/joaopandolfi/blackwhale/configurations"
 	"github.com/joaopandolfi/blackwhale/handlers"
 	"github.com/joaopandolfi/blackwhale/remotes/mongo"
 	"github.com/joaopandolfi/blackwhale/utils"
+	"github.com/joaopandolfi/hydra-back/config"
+	"github.com/joaopandolfi/hydra-back/models"
 )
 
 // --- Health ---

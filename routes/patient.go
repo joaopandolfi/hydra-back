@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"../controllers"
-	"../mhandlers"
 	"github.com/gorilla/mux"
+	"github.com/joaopandolfi/hydra-back/controllers"
+	"github.com/joaopandolfi/hydra-back/mhandlers"
 )
 
 func patient(r *mux.Router) {

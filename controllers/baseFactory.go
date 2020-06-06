@@ -1,8 +1,8 @@
 package controllers
 
 import (
-"../dao"
-"../services"
+	"github.com/joaopandolfi/hydra-back/dao"
+	"github.com/joaopandolfi/hydra-back/services"
 )
 
 // NewUserService - Factory

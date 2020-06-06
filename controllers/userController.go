@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"../models"
 	"github.com/joaopandolfi/blackwhale/handlers"
 	"github.com/joaopandolfi/blackwhale/utils"
+	"github.com/joaopandolfi/hydra-back/models"
 	"github.com/segmentio/encoding/json"
 )
 
